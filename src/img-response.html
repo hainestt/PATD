@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .img-wrapper {
+            width: 500px;
+            padding-top: 25%;
+            max-height: 666px;
+            position: relative;
+            background: red;
+        }
+        .img-wrapper img {
+            width: 100%;
+            height: auto;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .response-img {
+        }
+    </style>
+</head>
+<body>
+    <div class="img-wrapper">
+        <img src="https://cdn.aoscdn.com/img/ios-data-recovery/main/bg2.jpg" alt="">
+    </div>
+
+
+    <h2>picture响应式图片</h2>
+    <picture>
+        <img
+            class="response-img"
+            sizes="(max-width: 1400px) 100vw, 1400px"
+            srcset="
+            ./img/woman_glasses/woman_glasses_c_scale,w_200.jpg 200w,
+            ./img/woman_glasses/woman_glasses_c_scale,w_423.jpg 423w,
+            ./img/woman_glasses/woman_glasses_c_scale,w_587.jpg 587w,
+            ./img/woman_glasses/woman_glasses_c_scale,w_726.jpg 726w,
+            ./img/woman_glasses/woman_glasses_c_scale,w_877.jpg 877w,
+            ./img/woman_glasses/woman_glasses_c_scale,w_991.jpg 991w,
+            ./img/woman_glasses/woman_glasses_c_scale,w_1096.jpg 1096w,
+            ./img/woman_glasses/woman_glasses_c_scale,w_1198.jpg 1198w,
+            ./img/woman_glasses/woman_glasses_c_scale,w_1294.jpg 1294w,
+            ./img/woman_glasses/woman_glasses_c_scale,w_1388.jpg 1388w,
+            ./img/woman_glasses/woman_glasses_c_scale,w_1400.jpg 1400w"
+            src="./img/woman_glasses/woman_glasses_c_scale,w_1400.jpg"
+            alt="">
+    </picture>
+</body>
+</html>
