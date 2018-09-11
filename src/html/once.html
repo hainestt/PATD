@@ -1,0 +1,47 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+    <button class="btn">once</button>
+
+    <script>
+        (function () {
+            function on (node, event, fn) {
+                node.addEventListener(event, fn, false)
+            }
+
+            function off (node, event, fn) {
+                node.removeEventListener(event, fn, false)
+            }
+
+            function once (node, event, fn) {
+                function wrap () {
+                    off(node, event, wrap)
+                    fn.apply(this, arguments)
+                }
+
+                // wrap.fn = fn
+                on(node, event, wrap)
+
+                return wrap
+            }
+
+
+            let btn = document.querySelector('.btn')
+            let handler = function (e) {
+                console.log('e', e)
+                alert('once')
+            }
+
+            let a = once(btn, 'click', handler)
+            console.log(a)
+        }())
+    </script>
+</body>
+</html>

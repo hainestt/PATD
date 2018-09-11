@@ -75,7 +75,7 @@ gulp.task('img', () => {
 
 
 gulp.task('html', () => {
-	gulp.src(['./src/*.html', './src/temp/**/*'], {base: './src'})
+	gulp.src(['./src/html/*.html'], {base: './src/html'})
 	.pipe(changed(dest, {hasChanged: changed.compareSha1Digest}))
 	.pipe(gulp.dest(dest))
 })
@@ -85,11 +85,11 @@ gulp.task('clean', () => {
 })
 
 gulp.task('watch', () => {
-	gulp.watch('src/*.html', ['html'])
+	gulp.watch('src/html/*.html', ['html'])
 	gulp.watch('src/scss/**/*.scss', ['css'])
 	gulp.watch('src/js/**/*.js', ['js'])
 	gulp.watch(['src/img/**/*.jpg', './src/img/**/*.png', './src/img/**/*.gif', './src/img/**/*.svg'], ['img'])
-	
+
 	browserSync.init([
         `${dest}/css/*.css`,
         `${dest}/*.html`,
@@ -116,14 +116,14 @@ gulp.task('build:live', cb => {
 
 gulp.task('default', () =>{
 	switch (true) {
-		case yargs.c: 
+		case yargs.c:
 			gulp.start('clean')
 			break
 		case yargs.d:
             gulp.start('build:dev')
 			gulp.start('watch')
 			break
-		case yargs.l: 
+		case yargs.l:
 			gulp.start('build:live')
 			break
 		default:
