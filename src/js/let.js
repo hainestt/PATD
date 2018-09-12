@@ -1,7 +1,14 @@
 
-require('@babel/polyfill')
+// require('@babel/polyfill')
 // import a from './test'
 
+let utils = require('../utils')
+
+console.log('utils', utils)
+
+import { on } from '../utils'
+
+console.log('on', on)
 
 // let a = 2
 

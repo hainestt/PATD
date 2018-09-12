@@ -21,6 +21,7 @@ const getEntry = function () {
 module.exports = {
 	// cache: false,
 	mode: 'development',
+	// mode: 'production', // tree sharking need in production
 	entry: getEntry(),
 	output: {
 		path: path.join(__dirname, '../dist/js/'),
@@ -59,6 +60,7 @@ module.exports = {
 		},
 		minimizer: [
 			new UglifyJsPlugin({
+				test: /\.js$/,
 				uglifyOptions: {
 					warnings: false,
 					compress: {

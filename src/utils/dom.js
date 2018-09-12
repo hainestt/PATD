@@ -8,7 +8,7 @@ export function off (node, event, fn) {
     node.removeEventListener(event, fn, false)
 }
 
-function once (node, event, fn) {
+export function once1 (node, event, fn) {
     node.addEventListener(event, function t (e) {
         e.target.removeEventListener(event, t, false)
         fn.apply(this || node, arguments || e)

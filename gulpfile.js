@@ -87,7 +87,7 @@ gulp.task('clean', () => {
 gulp.task('watch', () => {
 	gulp.watch('src/html/*.html', ['html'])
 	gulp.watch('src/scss/**/*.scss', ['css'])
-	gulp.watch('src/js/**/*.js', ['js'])
+	gulp.watch('src/**/*.js', ['js'])
 	gulp.watch(['src/img/**/*.jpg', './src/img/**/*.png', './src/img/**/*.gif', './src/img/**/*.svg'], ['img'])
 
 	browserSync.init([

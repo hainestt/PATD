@@ -1,17 +1,3 @@
+import { on } from '../utils/dom'
 
-// import a from './test'
-debugger
-
-function foo () {
-    debugger
-    console.log(a)
-}
-
-function bar () {
-    debugger
-    // var a = 3
-    foo()
-}
-
-// var a = 2
-bar()
+on('')
