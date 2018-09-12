@@ -6,9 +6,10 @@ let utils = require('../utils')
 
 console.log('utils', utils)
 
-import { on } from '../utils'
+import { on, generateArr } from '../utils'
 
-console.log('on', on)
+let arr = generateArr(10)
+console.log('on', arr)
 
 // let a = 2
 
