@@ -1,4 +1,5 @@
 
+// import a from './test'
 debugger
 
 function foo () {
@@ -8,9 +9,9 @@ function foo () {
 
 function bar () {
     debugger
-    var a = 3
+    // var a = 3
     foo()
 }
 
-var a = 2
+// var a = 2
 bar()

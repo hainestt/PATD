@@ -1,17 +1,17 @@
-const gulp         = require('gulp')
-const gutil        = require('gulp-util')
-const changed      = require('gulp-changed')
-const sass         = require('gulp-sass')
-const base64       = require('gulp-base64')
+const gulp		 = require('gulp')
+const gutil		= require('gulp-util')
+const changed	  = require('gulp-changed')
+const sass		 = require('gulp-sass')
+const base64	   = require('gulp-base64')
 const autoprefixer = require('gulp-autoprefixer')
-const imagemin     = require('gulp-imagemin')
-const md5          = require('gulp-md5-plus')
-const del          = require('del')
+const imagemin	 = require('gulp-imagemin')
+const md5		  = require('gulp-md5-plus')
+const del		  = require('del')
 const browserSync  = require('browser-sync')
-const yargs        = require('yargs').argv
+const yargs		= require('yargs').argv
 const runSequence  = require('run-sequence')
-const pngquant     = require('imagemin-pngquant')
-const webpack      = require('webpack')
+const pngquant	 = require('imagemin-pngquant')
+const webpack	  = require('webpack')
 const webpackConfig = require('./config/webpack.config')
 
 
@@ -47,7 +47,7 @@ gulp.task('js', (done) => {
 
 gulp.task('md5', ['clean'], () => {
 	gulp.src([`${dest}/js/*.js`, `${dest}/css/*.css`], {base: dest})
-        .pipe(md5(10, `${dest}/*.html`))
+		.pipe(md5(10, `${dest}/*.html`))
 		.pipe(gulp.dest(`${dest}`))
 })
 
@@ -91,10 +91,10 @@ gulp.task('watch', () => {
 	gulp.watch(['src/img/**/*.jpg', './src/img/**/*.png', './src/img/**/*.gif', './src/img/**/*.svg'], ['img'])
 
 	browserSync.init([
-        `${dest}/css/*.css`,
-        `${dest}/*.html`,
-        `${dest}/js/*.js`,
-        `${dest}/img/**/*`
+		`${dest}/css/*.css`,
+		`${dest}/*.html`,
+		`${dest}/js/*.js`,
+		`${dest}/img/**/*`
 	], {
 		server: {
 			baseDir: dest
@@ -120,7 +120,7 @@ gulp.task('default', () =>{
 			gulp.start('clean')
 			break
 		case yargs.d:
-            gulp.start('build:dev')
+			gulp.start('build:dev')
 			gulp.start('watch')
 			break
 		case yargs.l:

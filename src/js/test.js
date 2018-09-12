@@ -1,4 +1,5 @@
 
+require('@babel/polyfill')
 
 for (var i = 0; i < 5; i++) {
     setTimeout(function() {
@@ -7,3 +8,5 @@ for (var i = 0; i < 5; i++) {
 }
 
 console.log('b', new Date, i)
+
+export default a = '1'

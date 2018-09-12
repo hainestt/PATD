@@ -20,18 +20,42 @@ const getEntry = function () {
 
 module.exports = {
 	// cache: false,
-	// devtool: '#',
 	mode: 'development',
 	entry: getEntry(),
 	output: {
 		path: path.join(__dirname, '../dist/js/'),
 		publicPath: 'dist/js/',
 		filename: '[name].js',
-		chunkFilename: '[chunkhash].js'
+		// chunkFilename: '[chunkhash].js'
+		chunkFilename: '[name].js'
+	},
+	module: {
+		rules: [
+			{
+				test: /\.js$/,
+				exclude: /(node_modules)/,
+				use: {
+					loader: 'babel-loader?cacheDirectory'
+				}
+			}
+		]
 	},
 	optimization: {
 		splitChunks: {
-			chunks: 'all'
+			cacheGroups: {
+				vendor: {
+					name: 'vendor',
+					test: /[\\/]node_modules[\\/]/,
+					chunks: 'all',
+					minSize: 1,
+				},
+				common: {
+					name: 'common',
+					chunks: 'all',
+					minChunks: 2,
+					priority: 10
+				}
+			}
 		},
 		minimizer: [
 			new UglifyJsPlugin({
@@ -41,7 +65,7 @@ module.exports = {
 						drop_debugger: false
 					}
 				}
-				
+
 			})
 		]
 	},
