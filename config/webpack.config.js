@@ -5,8 +5,9 @@ const srcDir         = path.resolve(process.cwd(), 'src')
 
 const getEntry = function () {
 	let source = path.resolve(srcDir, 'js')
-	let dirs = fs.readdirSync(source)
-	let matchs = [], files = {}
+	let dirs   = fs.readdirSync(source)
+	let matchs = []
+	let files  = {}
 
 	dirs.forEach(function (item) {
 		matchs = item.match(/(.+)\.js/)
@@ -53,7 +54,7 @@ module.exports = {
 				common: {
 					name: 'common',
 					chunks: 'all',
-					minChunks: 2,
+					// minChunks: 1,
 					priority: 10
 				}
 			}
