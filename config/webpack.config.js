@@ -54,7 +54,7 @@ module.exports = {
 				common: {
 					name: 'common',
 					chunks: 'all',
-					// minChunks: 1,
+					minChunks: 2,
 					priority: 10
 				}
 			}

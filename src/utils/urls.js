@@ -13,7 +13,7 @@
 /***
  * encodeURI & decodeURI 【用于编码整个URI，URI中合法字符不会被转码】
  * encodeURIComponent & decodeURIComponent 【常用于编码单个请求参数，不会影响整个URI】
- * escape & unescape 【已废弃，不建议使用】
+ * escape & unescape 【已移除标准，不建议使用】
 */
 
 
@@ -27,5 +27,4 @@ export function getQuery(url, name) {
 		return decodeURIComponent(result[2])
 	}
 	return null
-
 }

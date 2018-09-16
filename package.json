@@ -41,6 +41,7 @@
     "webpack": "^4.17.2"
   },
   "dependencies": {
-    "@babel/polyfill": "^7.0.0"
+    "@babel/polyfill": "^7.0.0",
+    "@babel/runtime": "^7.0.0"
   }
 }
