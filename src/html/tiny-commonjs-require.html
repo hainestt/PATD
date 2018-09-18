@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+</head>
+<body>
+
+	<script src="../js/tiny-commonjs-require.js"></script>
+	<script>
+
+		require.register('bar.js', function (exports, require, module) {
+			module.exports = function(x) {
+				console.log('dep:', x)
+			}
+		})
+
+		require.register('./foo.js', function(exports, require, module) {
+			var dep  = require('../bar.js')
+
+			dep('bar')
+
+			module.exports = function(x) {
+				console.log('x:', x)
+			}
+		})
+
+		var foo = require('./foo.js')
+
+		foo('Hello World')
+
+	</script>
+</body>
+</html>
