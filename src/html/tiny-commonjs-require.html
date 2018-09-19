@@ -11,13 +11,13 @@
 	<script src="../js/tiny-commonjs-require.js"></script>
 	<script>
 
-		require.register('bar.js', function (exports, require, module) {
+		define('bar.js', function (exports, require, module) {
 			module.exports = function(x) {
 				console.log('dep:', x)
 			}
 		})
 
-		require.register('./foo.js', function(exports, require, module) {
+		define('./foo.js', function(exports, require, module) {
 			var dep  = require('../bar.js')
 
 			dep('bar')

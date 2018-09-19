@@ -40,7 +40,7 @@ require.resolve = function (path) {
 	}
 }
 
-require.register = function (path, definition) {
+var define = require.register = function (path, definition) {
 	require.modules[path] = definition
 }
 
