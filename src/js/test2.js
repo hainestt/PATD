@@ -1,3 +1,8 @@
-import { on } from '../utils/dom'
+var leaks = (function () {
+	let leak = 'leak test'
 
-on('')
+	return function () {
+		console.log(leak)
+	}
+})()
+leaks()
