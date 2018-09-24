@@ -1,3 +1,5 @@
+'use strct';
+
 const timeout = ms => new Promise(resolve => {
 	setTimeout(_ => {
 		resolve()
@@ -14,7 +16,7 @@ const ajax2 = timeout(3000).then(() => {
 	return 2
 })
 
-const ajax3 = timeout(1000).then(() => {
+const ajax3 = timeout(2000).then(() => {
 	console.log('3')
 	return 3
 })
@@ -57,4 +59,25 @@ function mergePromise2(arrAjax) {
 
 mergePromise2([ajax1,ajax2 ,ajax3]).then(data => {
 	console.log('done', data)
+})
+
+
+/***
+ * 只要第一个Promise完成，它就会忽略后续的任何拒绝和完成
+*/
+
+if(!Promise.first) {
+	Promise.first = function(prs) {
+		return new Promise((resolve, reject) => {
+			prs.forEach(pr => {
+				Promise.resolve(pr)
+				.then(resolve)
+			})
+		})
+	}
+}
+
+Promise.first([ajax1,ajax2, ajax3])
+.then(res => {
+	console.log('p-first', res)
 })
