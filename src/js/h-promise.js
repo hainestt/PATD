@@ -12,7 +12,7 @@ let cycle
 const toString  = ({}).toString
 
 const timer = (typeof setImmediate !== 'undefined') ?
-				function timer(fn) {return setImmediate(fn)} :
+				function(fn) {return setImmediate(fn)} :
 				setTimeout
 
 const queue = (function() {
@@ -50,6 +50,7 @@ const queue = (function() {
 			first = last = cycle = void 0
 
 			while(f) {
+
 				f.fn.call(f.self)
 				f = f.next
 			}
@@ -72,7 +73,7 @@ const isThenable = function (o) {
 	let then
 	let type = typeof o
 
-	if (!!o && (type == 'object' || type == 'function')) {
+	if (o != null && (type == 'object' || type == 'function')) {
 		then = o.then
 	}
 
@@ -83,11 +84,14 @@ const notify = function () {
 	for (let i = 0, l = this.chain.length; i < l; i++) {
 		notifyIsolated(this, (this.state === 1) ? this.chain[i].success: this.chain[i].failure, this.chain[i])
 	}
+	this.chain.length = 0
 }
 
 const notifyIsolated = function(self, cb, chain) {
-	let ret,_then
+	let ret, _then
+
 	try {
+
 		if (cb === false) {
 			chain.reject(self.msg)
 		} else {
@@ -99,7 +103,7 @@ const notifyIsolated = function(self, cb, chain) {
 
 			if (ret === chain.promise) {
 				chain.reject(new TypeError('Promise chain cycle'))
-			} else if (_this = isThenable(ret)) {
+			} else if (_then = isThenable(ret)) {
 				_then.call(ret, chain.resolve, chain.reject)
 			} else {
 				chain.resolve(ret)
@@ -143,7 +147,7 @@ const resolve = function (msg) {
 			self.msg = msg
 			self.state = 1
 			if (self.chain.length > 0) {
-				schedule(chain, self)
+				schedule(notify, self)
 			}
 		}
 
@@ -180,8 +184,8 @@ function MakeDefWrapper (self) {
 
 function MakeDef (self) {
 	this.promise = self
-	this.state = 0
-	this.triggered = false
+	this.state = 0			// 0 -> pending,1 -> fulfilled, 2 -> rejected
+	this.triggered = false  // 保证resolve,reject在同一个Promise实例中只触发一次
 	this.chain = []
 	this.msg = void 0
 }
@@ -191,21 +195,15 @@ function Promise (executor) {
 		throw TypeError('Not a function')
 	}
 
-	if (this.__NPO__ !== 0) {
-		throw TypeError('Not a promise')
-	}
-
-	this.__NPO__ = 1
-
 	let def = new MakeDef(this)
 
-	this.then = function (success, failure) {
+	this.then = (success, failure) => {
 		let o = {
 			success: typeof success == 'function' ? success : false,
-			failure: typeof failure == 'failure' ? failure : false
+			failure: typeof failure == 'function' ? failure : false
 		}
 
-		o.promise = new this.constructor(function(resolve, reject) {
+		o.promise = new this.constructor((resolve, reject) => {
 			if (typeof resolve != 'function' || typeof reject != 'function') {
 				throw TypeError('Not a function')
 			}
@@ -228,22 +226,25 @@ function Promise (executor) {
 		return this.then(void 0, failure)
 	}
 
-	executor.call(void 0, function(msg) {
-		resolve.call(def, msg)
-	}, function(msg) {
-		reject.call(def, msg)
-	})
-}
+	try {
+		executor.call(void 0, msg => {
+			resolve.call(def, msg)
+		}, msg => {
+			reject.call(def, msg)
+		})
+	} catch (err) {
+		reject.call(def, err)
+	}
 
-Promise.prototype.__NPO__ = 0
+}
 
 Promise.resolve  = msg => {
 
-	if (msg && typeof msg == 'object' && msg.__NPO__ === 1) {
+	if (msg && typeof msg == 'object') {
 		return msg
 	}
 
-	return new this((resolve, reject) => {
+	return new Promise((resolve, reject) => {
 		if (typeof resolve != 'function' || typeof reject != 'function') {
 			throw TypeError('Not a function')
 		}
@@ -254,7 +255,7 @@ Promise.resolve  = msg => {
 
 Promise.reject = msg => {
 
-	return new this((resolve, reject) => {
+	return new Promise((resolve, reject) => {
 		if (typeof resolve != 'function' || typeof reject != 'function') {
 			throw TypeError('Not a function')
 		}
@@ -270,3 +271,33 @@ Promise['all'] = function (msg) {
 Promise.race = function (msg) {
 
 }
+
+
+/**
+ * test
+*/
+console.log('1')
+
+new Promise((resolve, reject) => {
+	console.log('2')
+	resolve('2.1')
+	// a = 2
+})
+.then(() => {
+	console.log('3')
+	return '2.2'
+}, err => {
+	console.error('reject-err:', err)
+})
+.then(res => {
+	console.log('res:', res)
+})
+.catch((err) => {
+	console.log('catch-err:', err)
+})
+
+Promise.resolve().then(() => {
+	console.log('6')
+})
+
+console.log('5')

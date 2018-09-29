@@ -1,4 +1,3 @@
-import * as bind from './bind'
 import * as dom from './dom'
 import * as arr from './array'
 import * as urls from './urls'
@@ -11,7 +10,6 @@ Object.defineProperty(__webpack_exports__ , '__esModule', {
 })
 
 
-exportKeys(bind)
 exportKeys(dom)
 exportKeys(arr)
 exportKeys(urls)
