@@ -18,7 +18,7 @@ exportKeys(string)
 
 
 function exportKeys(obj) {
-	if (obj !== null) {
+	if (!!obj) {
 		Object.keys(obj).forEach(key => {
 			Object.defineProperty(__webpack_exports__, key, {
 				value: obj[key],

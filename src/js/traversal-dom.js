@@ -3,25 +3,26 @@ let callback = function (el) {
     console.log(el)
 }
 
+let count = 0
 
 let fn = function (node, cb) {
 	console.time('start')
 
-    let fns = function (node) {
-            if (node.hasChildNodes()) {
-                let subNodes = node.childNodes
-                subNodes.forEach(el => {
-                    cb(el)
-                    fns(el)
-                })
-            }
-    }
-
-	fns.call(null, node)
+	+(function fns(node) {
+		count ++
+		if (node.hasChildNodes()) {
+			node.childNodes.forEach( el => {
+				cb(el)
+				fns(el)
+			})
+		} else {
+			return
+		}
+	})(node)
 
 	console.timeEnd('start')
+	console.log('dom:', count)
 }
-
 
 /***
  *
@@ -61,5 +62,5 @@ let fn3 = function (node, cb) {
 }
 
 
-fn2(document.body, callback)
+fn(document.body, callback)
 

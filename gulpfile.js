@@ -75,7 +75,7 @@ gulp.task('img', () => {
 
 
 gulp.task('html', () => {
-	gulp.src(['./src/html/*.html'], {base: './src/html'})
+	gulp.src(['./src/html/*.html', './src/html/ecma/**/*'], {base: './src/html'})
 	.pipe(changed(dest, {hasChanged: changed.compareSha1Digest}))
 	.pipe(gulp.dest(dest))
 })
