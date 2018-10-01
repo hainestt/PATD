@@ -5,6 +5,7 @@ import { run } from './promise-generator'
  * 1,多线程竞态
 */
 
+
 !(function() {
 	function step(gen) {
 		var it = gen()
@@ -67,6 +68,7 @@ import { run } from './promise-generator'
  * 2，迭代器接口设计
 */
 
+
 !(function () {
 	var something = (function() {
 		var nextVal
@@ -100,7 +102,72 @@ import { run } from './promise-generator'
 
 
 /***
- * 3，递归委托
+ * 3,异步迭代器
+*/
+
+function request(url, method = 'GET') {
+
+	let xhr = new XMLHttpRequest()
+
+	return new Promise((resolve, reject) => {
+		xhr.open(method, url, true)
+		// xhr.setRequestHeader('Content-Type', 'text/html')
+		xhr.send()
+
+		xhr.onreadystatechange = () => {
+			if (xhr.readyState === 4) {
+				if (xhr.status === 200) {
+					resolve(xhr.responseText)
+				} else {
+					reject(xhr.status)
+				}
+			}
+		}
+	})
+
+}
+
+!(function() {
+	/***
+	 * yield 出foo的值在chrome和firefox完全不一样,原因在于setTimeout()返回的是定时器的编号，这个编号由浏览器自由分配，且唯一
+	*/
+	function foo () {
+		return setTimeout(() => {})
+	}
+
+	function foo2 () {
+		return request('./js/index.js')
+		.then(res => {
+			return res
+		}, err => {
+			console.error('err', err)
+		})
+	}
+
+	function *bar () {
+		let r = yield foo()
+
+		console.log('r', r)
+	}
+
+	// let it = bar()
+	// let p = it.next().value
+	// p.then(res => {
+	// 	console.log(res)
+	// })
+
+	run(bar)
+
+	!(async () => {
+		let text = await foo2()
+	})()
+
+})()
+
+
+
+/***
+ * 4，递归委托
  */
 
 !(function() {
@@ -109,21 +176,27 @@ import { run } from './promise-generator'
 			val = yield *foo(val - 1)
 		}
 
-		return yield setTimeout(() => {
-			console.log('val', val)
-		})
+		return yield request(`./ecma/ecma-logo.svg?val=${val}`)
+
 	}
 
 	function *bar() {
-		let r1 = yield *foo(2)
+		let r1 = yield foo(3)
 		console.log('r1', r1)
 	}
 
-	run(bar)
+	// run(foo, 3)
+	// run(bar)
 	// let it = bar()
-	// it.next().value
-	// it.next().value
-	// it.next().value
+	// console.log('next:', it.next().value )
+
+	!(async () => {
+		let r1 = await foo(3)
+		console.log('r1', r1.next().value.then(res => {console.log('r1-r1:', res)}))
+		console.log('r1', r1.next().value.then(res => {console.log('r1-r2:', res)}))
+		console.log('r1', r1.next().value.then(res => {console.log('r1-r3:', res)}))
+		console.log('r1', r1.next())
+	})()
 
 })()
 

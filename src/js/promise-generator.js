@@ -10,6 +10,7 @@ export function run (gen) {
 
 	return Promise.resolve()
 		.then(function handleNext(value) {
+
 			let next = it.next(value)
 
 			return (function hadnleResult(next){
@@ -26,4 +27,5 @@ export function run (gen) {
 				}
 			})(next)
 		})
+
 }
