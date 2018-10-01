@@ -2,9 +2,7 @@
  * 1, 异步与回调
 */
 
-
-
-const run = function (gen) {
+export function run (gen) {
 	let args = ([]).slice.call(arguments, 1)
 	let it
 
