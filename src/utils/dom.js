@@ -29,6 +29,45 @@ export function once (node, event, fn) {
     on(node, event, wrap)
 }
 
+ /***
+  * 窗口可视范围的高度
+  */
+export function getClientHieght () {
+    let clientHeight = 0
+
+    if (document.body.clientHeight && document.documentElement.clientHeight) {
+        clientHeight = (document.body.clientHeight < document.documentElement.clientHeight) ? document.body.clientHeight : document.documentElement.clientHeight
+    } else {
+        clientHeight = (document.body.clientHeight < document.documentElement.clientHeight) ? document.body.clientHeight : document.documentElement.clientHeight
+    }
+
+    return clientHeight
+}
+
+/**
+ * 窗口滚动条高度
+*/
+export function getScrollTop () {
+    let scrollTop=0
+
+    if (document.documentElement && document.documentElement.scrollTop) {
+        scrollTop = document.documentElement.scrollTop
+    } else if (document.body){
+        scrollTop = document.body.scrollTop
+    }
+    return scrollTop
+}
+
+/***
+ * 文档内容实际高度
+*/
+export function getDomHeight () {
+    return Math.max(document.body.scrollHeight, document.documentElement.scrollHeight)
+}
+
+/***
+ * requestAnimationFrame
+*/
 export const requestFrame  = (function () {
 	let raf = window.requestAnimationFrame ||
 			window.mozRequestAnimationFrame ||
@@ -42,6 +81,9 @@ export const requestFrame  = (function () {
 	}
 }())
 
+/***
+ * cancelAnimationFrame
+*/
 export const cancelFrame = (function () {
 	let cancel = window.cancelAnimationFrame ||
 				window.mozCancelAnimationFrame ||
@@ -52,3 +94,4 @@ export const cancelFrame = (function () {
 		return cancel(id)
 	}
 }())
+
