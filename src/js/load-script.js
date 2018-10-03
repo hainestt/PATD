@@ -14,7 +14,7 @@ const loadScript = (url, callback) => {
 			}
 		}
 	} else {
-		script.onload = () => callback()
+		script.onload = callback
 	}
 
 	script.src = url

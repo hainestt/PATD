@@ -1,5 +1,6 @@
 
 import { run } from './promise-generator'
+import { request } from '../utils'
 
 /***
  * 1,多线程竞态
@@ -105,28 +106,6 @@ import { run } from './promise-generator'
  * 3,异步迭代器
 */
 
-function request(url, method = 'GET') {
-
-	let xhr = new XMLHttpRequest()
-
-	return new Promise((resolve, reject) => {
-		xhr.open(method, url, true)
-		// xhr.setRequestHeader('Content-Type', 'text/html')
-		xhr.send()
-
-		xhr.onreadystatechange = () => {
-			if (xhr.readyState === 4) {
-				if (xhr.status === 200) {
-					resolve(xhr.responseText)
-				} else {
-					reject(xhr.status)
-				}
-			}
-		}
-	})
-
-}
-
 !(function() {
 	/***
 	 * yield 出foo的值在chrome和firefox完全不一样,原因在于setTimeout()返回的是定时器的编号，这个编号由浏览器自由分配，且唯一
@@ -147,7 +126,7 @@ function request(url, method = 'GET') {
 	function *bar () {
 		let r = yield foo()
 
-		console.log('r', r)
+		// console.log('r', r)
 	}
 
 	// let it = bar()
@@ -165,9 +144,32 @@ function request(url, method = 'GET') {
 })()
 
 
+/***
+ * 4, 异步委托
+*/
+
+!(function () {
+	function *foo() {
+		let r2 = yield request('./js/bind.js')
+		let r3 = yield request(`./ecma/ecma-logo.svg?v=${r2}`)
+
+		return r3
+	}
+
+	function *bar() {
+		let r1 = yield request('./js/debounce.js')
+		let r3 = yield *foo()
+
+		// console.log('async-delegate:', r3)
+	}
+
+	// run(bar)
+})()
+
+
 
 /***
- * 4，递归委托
+ * 5，递归委托
  */
 
 !(function() {
@@ -181,54 +183,98 @@ function request(url, method = 'GET') {
 	}
 
 	function *bar() {
-		let r1 = yield foo(3)
-		console.log('r1', r1)
+		let r1 = yield *foo(3)
+		// console.log('r1', r1)
 	}
 
-	// run(foo, 3)
-	// run(bar)
-	// let it = bar()
-	// console.log('next:', it.next().value )
+	run(bar)
 
 	!(async () => {
 		let r1 = await foo(3)
-		console.log('r1', r1.next().value.then(res => {console.log('r1-r1:', res)}))
-		console.log('r1', r1.next().value.then(res => {console.log('r1-r2:', res)}))
-		console.log('r1', r1.next().value.then(res => {console.log('r1-r3:', res)}))
-		console.log('r1', r1.next())
+		// console.log('r1', r1.next().value.then(res => {console.log('r1-r1:', res)}))
+		// console.log('r1', r1.next().value.then(res => {console.log('r1-r2:', res)}))
+		// console.log('r1', r1.next().value.then(res => {console.log('r1-r3:', res)}))
+		// console.log('r1', r1.next())
+		// console.log('r1', r1.next())
+		// console.log('r1', r1.next())
+		// console.log('r1', r1.next())
 	})()
 
 })()
 
 
-
 /***
  *  实现原理
+ *
 */
 
-/***
-regeneratorRuntime.mark(generatorTest)
+// function *foo (url) {
+// 	try {
+// 		console.log('requeting', url)
+// 		let val = yield request(url)
+// 		console.log(val)
+// 	} catch(err) {
+// 		console.log('Oops:', err)
+// 		return false
+// 	}
+// }
 
-function generatorTest() {
-	return regeneratorRuntime.wrap(function generatorTest$(_context) {
-		   while (1) {
-			    switch (_context.prev = _context.next) {
-					case 0:
-						 _context.next = 2;
-						 return 'hello';
-					case 2:
-						_context.next = 4;
-						return 'world';
-					case 4:
-						_context.next = 6;
-						return 'haines';
-					case 6:
-					case "end":
-						return _context.stop();
+// 1.手工转换
+function foo (url) {
+	let state
+	let val
+
+	function process(v) {
+		switch(state) {
+			case 1:
+				console.log('requeting', url)
+				return request(url)
+			case 2:
+				val = v
+				console.log(val)
+				return
+			case 3:
+				let err = v
+				console.log('Oops:', err)
+				return false
+		}
+	}
+
+	return {
+		next(v) {
+			if (!state) {
+				state = 1
+				return {
+					done: false,
+					value: process()
+				}
+			} else if (state == 1) {
+				state = 2
+				return {
+					done: true,
+					value: process(v)
+				}
+			} else {
+				return {
+					done: true,
+					value: undefined
 				}
 			}
-		}, _marked, this);
+		},
+		'throw'(e) {
+			if (state == 1) {
+				state = 3
+				return {
+					done: true,
+					value: process(e)
+				}
+			} else {
+				throw e
+			}
+		}
 	}
-		var r = generatorTest();
-		console.log(r.next());
-**/
+}
+
+var it = foo('./ecma/ecma-logo.svg')
+console.log(it.next())
+console.log(it.next())

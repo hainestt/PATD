@@ -1,5 +1,5 @@
 /**
- * 1, 异步与回调
+ * 支持thunk的generator执行器
 */
 
 export function run (gen) {
@@ -16,9 +16,26 @@ export function run (gen) {
 			return (function hadnleResult(next){
 				if (next.done) {
 					return next.value
-				} else {
+				} else if (typeof next.value == 'function') {
+					return new Promise((resolve, reject) => {
+						next.value((err, msg) => {
+							if (err) {
+								reject(err)
+							} else {
+								resolve(msg)
+							}
+						})
+					})
+					.then(handleNext, err =>{
+						return Promise.resolve(
+							it.throw(err)
+						)
+						.then(hadnleResult)
+					})
+				}
+				else {
 					return Promise.resolve(next.value)
-						.then(handleNext, function handleError(err) {
+						.then(handleNext, err => {
 							return Promise.resolve(
 								it.throw(err)
 							)
