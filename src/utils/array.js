@@ -11,3 +11,17 @@ export function generateRangeArr(start = 0, end = 100) {
 		return parseInt( start + Math.random() * arr.length)
 	})
 }
+
+export function duplicateArr(arr = []) {
+	let obj = {}
+	let ret = []
+
+	arr.forEach(item => {
+		if (!obj[item]) {
+			ret.push(item)
+			obj[item] = true
+		}
+	})
+
+	return ret
+}

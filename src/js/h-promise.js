@@ -203,7 +203,7 @@ function Promise (executor) {
 			failure: typeof failure == 'function' ? failure : false
 		}
 
-		o.promise = new this.constructor((resolve, reject) => {
+		o.promise = new Promise((resolve, reject) => {
 			if (typeof resolve != 'function' || typeof reject != 'function') {
 				throw TypeError('Not a function')
 			}

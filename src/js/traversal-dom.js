@@ -8,7 +8,7 @@ let count = 0
 let fn = function (node, cb) {
 	console.time('start')
 
-	+(function fns(node) {
+	!(function fns(node) {
 		count ++
 		if (node.hasChildNodes()) {
 			node.childNodes.forEach( el => {
