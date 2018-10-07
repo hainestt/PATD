@@ -9,6 +9,8 @@ export function request(url, method = 'GET') {
 
 		xhr.onreadystatechange = () => {
 			if (xhr.readyState === 4) {
+				// let resHeaders = xhr.getAllResponseHeaders()
+
 				if ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304) {
 					resolve(xhr.responseText)
 				} else {
@@ -16,6 +18,10 @@ export function request(url, method = 'GET') {
 				}
 			}
 		}
+
+		// xhr.onprogress = event => {
+		// 	console.log(`Recived ${event.loaded} of ${event.total} bytes`)
+		// }
 	})
 
 }

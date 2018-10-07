@@ -95,3 +95,32 @@ export const cancelFrame = (function () {
 	}
 }())
 
+export function addClass (el, cls) {
+	if (el.classList) {
+		el.classList.add(cls)
+	} else {
+		const cur = ' ' + (el.getAttribute('class') || '') + ' '
+		if (cur.indexOf(' ' + cls + ' ') < 0) {
+			el.setAttribute('class', (cur + cls).trim())
+		}
+	}
+}
+
+export function removeClass (el, cls) {
+	if (el.classList) {
+		el.classList.remove(cls)
+	} else {
+		let cur = ' ' + (el.getAttribute('class') || '') + ' '
+		let tar = ' ' + cls + ' '
+
+		while(cur.indexOf(tar) >= 0) {
+			cur = cur.replace(tar, ' ')
+		}
+
+		el.setAttribute('class', cur.trim())
+	}
+
+	if (!el.className) {
+		el.removeAttribute('class')
+	}
+}

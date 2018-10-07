@@ -6,15 +6,15 @@
             this._events = {}
         }
     }
-    
+
     Emitter.prototype = {
         on (event, fn, scope) {
             if (!fn) {
                 console.error('error handler')
             }
-    
+
             var events = this._events[event] || (this._events[event] = [])
-    
+
             events.push({
                 fn: fn,
                 scope: scope || null
@@ -33,7 +33,7 @@
 
             if (arguments.length === 1) {
                 delete this._events[event]
-                
+
                 return this
             }
 
@@ -56,17 +56,17 @@
                 self.off(event, on)
                 fn.apply(this, arguments)
             }
-            
+
             this.on(event, on, this)
             return this
         },
         emit(event) {
-           var args = [].slice.call(arguments, 1) 
+           var args = [].slice.call(arguments, 1)
            var events = this._events[event]
 
            if (events) {
                events = events.slice(0)
-               
+
                console.log('events', events)
 
                for (var i = 0, len = events.length; i < len; ++i) {
@@ -76,8 +76,7 @@
 
            return this
         }
-    }
-
+	}
 
     var emmiter = new Emitter()
 
@@ -86,5 +85,5 @@
     }
 
     emmiter.on('event', handler, this)
-    emmiter.emit('event', 'hihao')
+	emmiter.emit('event', 'hihao')
 } ())
