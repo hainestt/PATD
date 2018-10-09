@@ -4,6 +4,7 @@ import * as urls from './urls'
 import * as cookie from './cookie'
 import * as string from './string'
 import * as ajax from './ajax'
+import * as util from './util'
 
 
 Object.defineProperty(__webpack_exports__ , '__esModule', {
@@ -17,6 +18,7 @@ exportKeys(urls)
 exportKeys(cookie)
 exportKeys(string)
 exportKeys(ajax)
+exportKeys(util)
 
 
 function exportKeys(obj) {

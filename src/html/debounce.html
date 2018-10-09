@@ -6,38 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <style>
-        body {
-            height: 4800px;
-        }
-        .box1 {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            padding: 10px;
-            height: 40px;
-            border: 1px solid red;
-        }
-        .box2 {
-            width: 800px;
-            height: 200px;
-            margin: 200px auto;
-            color: #fff;
-            background: green;
-        }
-        .box-parent {
-            width: 800px;
-            min-height: 200px;
-            margin: 200px auto;
-            border: 1px solid red;
-        }
-        .body-height {
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 100px;
-            height: 100px;
-            border: 1px solid red;
-        }
+        body { height: 4800px;}
+        .box1 {position: fixed;top: 20px;left: 20px;padding: 10px;height: 40px;border: 1px solid red;}
+        .box2 {width: 800px;height: 200px;margin: 200px auto;color: #fff;background: green;}
+        .box-parent {width: 800px;min-height: 200px;margin: 200px auto;border: 1px solid red;}
+        .body-height {position: absolute;bottom: 0;right: 0;width: 100px;height: 100px;border: 1px solid red;}
+		form { margin: 100px 150px;}
 
     </style>
 </head>
@@ -48,12 +22,17 @@
 
     <button class="change-body"> 改变body 的高度</button>
 
-    <div class="body-height"></div>
+	<div class="body-height"></div>
 
-    <script src="./js/debounce.js"></script>
-    <!-- <script src="./js/lodash.custom.js"></script> -->
-    <script src="./js/dom.js"></script>
-    <script>
+	<form>
+		<input type="text" name="debounce">
+		<label for="debounce"></label>
+	</form>
+
+	<script src="./js/common.js"></script>
+	<script src="./js/vendor.js"></script>
+	<script src="./js/debounce.js"></script>
+    <!-- <script>
         (function(){
             var count = 1
             document.querySelector('.change-body').addEventListener('click', (e)=> {
@@ -95,6 +74,6 @@
 
 
         })()
-    </script>
+    </script> -->
 </body>
 </html>
