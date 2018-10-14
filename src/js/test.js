@@ -1,19 +1,28 @@
-'use strict'
+// 'use strict'
 
-let octalNumber = 0o77
+// let octalNumber = 0o77
 
-console.log('octalNum', octalNumber)
+// console.log('octalNum', octalNumber)
 
-console.log(1)
+import { generateArr } from '../utils'
 
-let count = 0
-let timer = setInterval(() => {
-	count++
+// var a = generateArr(4294967295)
 
-	if (count > 3) {
-		clearInterval(timer)
+// console.log(a)
+
+function Person () {}
+
+
+Person.prototype = {
+	name: 'Haines',
+	age: 27,
+	job: 'Web Front-End Engineer',
+	sayName: function () {
+		console.log(this.name)
 	}
-	console.log(2)
-}, 1000)
+}
 
-console.log('3')
+let firend = new Person()
+
+
+firend.sayName()
