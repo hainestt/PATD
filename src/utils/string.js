@@ -1,9 +1,7 @@
-
-
 /**
  * 反转字符串
 */
-export function reverse(str) {
+export function reverse (str) {
 	return Array.from(str).reverse().join('')
 }
 
@@ -36,3 +34,40 @@ if (!String.prototype.padStart) {
 }
 
 
+/***
+ * 类型检测
+*/
+
+export function typeOf (args) {
+	return ({}).toString.call(args).slice(8, -1)
+}
+
+/***
+ * json
+ * 参考prototype.js
+*/
+
+export function unfilterJSON (json, filter) {
+	var jsonFilter = /^\/\*-secure-([\s\S]*)\*\/\s*$/
+
+	return json.replace((filter || jsonFilter), (m0, m1) => {
+		return m1 || ''
+	})
+}
+
+export function isJSON (json) {
+	if (!json || typeOf(json) !== 'String') return false
+
+	return /^[\],:{}\s]*$/.test(json.replace(/\\(?:["\\\/bfnrt]|u[0-9a-fA-F]{4})/g, '@')
+		.replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']')
+		.replace(/(?:^|:|,)(?:\s*\[)/g, ''))
+}
+
+export function evalJSON (json, filter) {
+	if (isJSON(json)) {
+		let t = unfilterJSON(json, filter)
+		return JSON.parse(t)
+	} else {
+		throw `Invalid JSON:${json}`
+	}
+}

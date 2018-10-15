@@ -26,3 +26,8 @@ let firend = new Person()
 
 
 firend.sayName()
+
+
+let wroxwin= window.open('//blog.hainest.com', 'wroxWindow', 'height=400, width=400,top=10,left=10,resizable=yes')
+wroxwin.resizeTo(500, 500)
+wroxwin.moveTo(100, 100)
