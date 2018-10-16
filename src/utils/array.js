@@ -1,3 +1,18 @@
+
+import { typeOf } from './util'
+
+if (!Array.prototype.pluck) {
+	Array.prototype.pluck = function (property) {
+		let result = []
+
+		this.forEach(value => {
+			result.push(value[property])
+		})
+
+		return result
+	}
+}
+
 /***
  * 数组上限项：4294967295
 */
@@ -27,4 +42,56 @@ export function duplicateArr(arr = []) {
 	})
 
 	return ret
+}
+
+
+/***
+ * sortBy
+*/
+
+export function sortBy (arr, fn, scope) {
+
+	return arr.map((value, index) => {
+		return {
+			value: value,
+			criteria: fn.call(scope, value, index, this)
+		}
+	}, this).sort((left, right) => {
+		let a = left.criteria
+		let b = right.criteria
+		return a < b ? -1 : a > b ? 1 : 0
+	}).pluck('value')
+}
+
+/***
+ * zip
+ *
+ * ##example
+ * let name = ['Haines', 'Rock', 'Bob']
+ * let age = [27, 26, 28]
+ * let goal = ['web developer', 'singer', 'artist']
+ *
+ * zip(name, age, goal)
+ * -> [['Haines', 27, 'web developer'], ['Rock', 26, 'singer'], ['Bob', 28, 'artist']]
+ *
+ * zip(name, age, goal, (p) => {return `${p[0]} age is ${p[1]}, and his goal is to be a ${p[2]}` })
+ * ->["Haines age is 27, and his goal is to be a web developer", "Rock age is 26, and his goal is to be a singer", "Bob age is 28, and his goal is to be a artist"]
+*/
+
+export function zip (source, ...target) {
+	let args 	 = Array.from(target)
+	let len 	 = args.length
+	let iterator = x => x
+
+	if (typeOf(args[len - 1]) === 'Function') {
+		iterator = args.pop()
+	}
+
+	let collections = [source].concat(args)
+
+	return source.map((value, index) => {
+		return iterator.call(void 0, collections.pluck(index))
+	})
+
+
 }

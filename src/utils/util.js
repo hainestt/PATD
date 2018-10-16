@@ -111,3 +111,14 @@ export function loadScript (url, callback, ...options) {
 	script.src = url
 	document.head.appendChild(script)
 }
+
+
+/**
+ *
+ * @export
+ * @param {*} args
+ * @returns
+ */
+export function typeOf (args) {
+	return ({}).toString.call(args).slice(8, -1)
+}

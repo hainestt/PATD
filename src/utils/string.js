@@ -1,13 +1,9 @@
-/**
- * 反转字符串
-*/
-export function reverse (str) {
-	return Array.from(str).reverse().join('')
-}
+import { typeOf } from './util'
 
 /**
  * 字符串填充
 */
+
 if (!String.prototype.padStart) {
 	String.prototype.padStart = (len = 0, str = '') => {
 		if (this.length > len) {
@@ -33,13 +29,47 @@ if (!String.prototype.padStart) {
 	}
 }
 
+/**
+ * 反转字符串
+*/
+export function reverse (str) {
+	return Array.from(str).reverse().join('')
+}
 
 /***
- * 类型检测
+ * 去首尾空格
 */
 
-export function typeOf (args) {
-	return ({}).toString.call(args).slice(8, -1)
+export function trim (str) {
+	return String(str).replace(/^\s+(.*)\s+$/, (m0, m1) => {
+		return m1
+	})
+}
+
+/***
+ * 去标签
+*/
+
+export function trimTag (str) {
+	return String(str).replace(/^\w+(\s+("[^"]*"|'[^']*'|[^>])+)?(\/)?>|<\/\w+>/gi, '')
+}
+
+/***
+ * 转html标签
+*/
+export function escapeHTML (str) {
+	return String(str).replace(/&/g,'&amp;')
+			.replace(/</g, '&lt;')
+			.replace(/>/g, '&gt;')
+}
+
+/**
+ * 恢复html标签
+*/
+export function unescapeHTML (str) {
+	return trimTag(String(str)).replace(/&gt;/g, '>')
+			.replace(/&lt;/g, '<')
+			.replace(/&amp;/g, '&')
 }
 
 /***
