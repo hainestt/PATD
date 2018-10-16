@@ -65,8 +65,6 @@ export function debounceImmediate (fn, ms, immediate) {
 		timestamp = Date.now()
 		invokeNow = immediate && !timer
 
-		debugger
-
 		if (!timer) {
 			timer = setTimeout(later, ms)
 		}
