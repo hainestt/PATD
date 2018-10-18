@@ -28,7 +28,6 @@
 
 		for (var i = 0; i < 10; i++) {
 
-			// debugger
 			result[i] = (function (num) {
 				return function () {
 					return num

@@ -3,7 +3,6 @@ import { typeOf } from './util'
 /**
  * 字符串填充
 */
-
 if (!String.prototype.padStart) {
 	String.prototype.padStart = (len = 0, str = '') => {
 		if (this.length > len) {
@@ -39,17 +38,13 @@ export function reverse (str) {
 /***
  * 去首尾空格
 */
-
 export function trim (str) {
-	return String(str).replace(/^\s+(.*)\s+$/, (m0, m1) => {
-		return m1
-	})
+	return String(str).replace(/^\s+(.*)\s+$/, (m0, m1) => m1)
 }
 
 /***
  * 去标签
 */
-
 export function trimTag (str) {
 	return String(str).replace(/^\w+(\s+("[^"]*"|'[^']*'|[^>])+)?(\/)?>|<\/\w+>/gi, '')
 }
@@ -73,16 +68,49 @@ export function unescapeHTML (str) {
 }
 
 /***
+ * capitalize
+*/
+export function capitalize (str) {
+	return String(str).replace(/(^[a-z])(.*$)/, (m0, m1, m2) => `${m1.toUpperCase()}${m2}`)
+
+	// or
+	// return str.slice(0, 1).toUpperCase() + str.slice(1)
+}
+
+/***
+ * toCameCase
+*/
+export function toCameCase (str) {
+	return String(str).replace(/-([a-z])/ig, (m0, m1) => m1.toUpperCase())
+}
+
+/***
+ * underscore
+ *
+ * ##example
+ * underscore('backgroundColor')
+ * -> backgroun_color
+ *
+ * underscore('90HainesTao')
+ * -> 90_haines_tao
+*/
+export function underscore (str) {
+	return String(str).replace(/::/g, '/')
+		.replace(/([A-Z]+)([A-Z][a-z])/g, (m0, m1, m2) => `${m1}_${m2}`)
+		.replace(/([a-z\d])([A-Z])/g, (m0, m1, m2) => `${m1}_${m2}`)
+		.replace(/-/g, '_')
+		.toLowerCase()
+}
+
+
+/***
  * json
  * 参考prototype.js
 */
-
 export function unfilterJSON (json, filter) {
 	var jsonFilter = /^\/\*-secure-([\s\S]*)\*\/\s*$/
 
-	return json.replace((filter || jsonFilter), (m0, m1) => {
-		return m1 || ''
-	})
+	return json.replace((filter || jsonFilter), (m0, m1) => m1 || '')
 }
 
 export function isJSON (json) {

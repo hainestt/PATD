@@ -1,5 +1,12 @@
-import { unfilterJSON, isJSON, evalJSON, trim, sortBy } from '../utils'
-import { zip } from '../utils/array';
+import {
+	unfilterJSON,
+	isJSON,
+	evalJSON,
+	trim,
+	sortBy,
+	zip,
+	capitalize,
+	underscore } from '../utils'
 
 let text = `/*-secure-\n{"name": "Haines", "age": 27, "goal": "be a excellent web developer"}\n*/`
 
@@ -26,6 +33,11 @@ let arrzip = zip(name, age, goal, (p) => {
 
 console.log('arrzip', arrzip)
 
+console.log('haines', capitalize('haines'))
+console.log('underscore', underscore('90hainesTao'))
+
+
+
 // console.log(json.goal)
 
 // console.log(result)
@@ -35,4 +47,12 @@ console.log('arrzip', arrzip)
 // console.log(trim(str))
 // console.log(str)
 
+let count = 0
+setTimeout(function fn () {
+	count ++
 
+	if (count < 50) {
+		// setTimeout(fn, 1000)
+	}
+	console.log('count', count)
+}, 1000)

@@ -5,7 +5,7 @@ export function request(url, method = 'GET') {
 	return new Promise((resolve, reject) => {
 		xhr.open(method, url, true)
 		// xhr.setRequestHeader('Content-Type', 'text/html')
-		xhr.send()
+		xhr.send(null)
 
 		xhr.onreadystatechange = () => {
 			if (xhr.readyState === 4) {

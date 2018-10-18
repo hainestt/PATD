@@ -44,8 +44,6 @@ export function debounceImmediate (fn, ms, immediate) {
 	let later = function () {
 		let last = Date.now() - timestamp
 
-		console.log('last', last)
-
 		if (last < ms && last >= 0) {
 			timer = setTimeout(later, ms - last)
 		} else {
@@ -120,3 +118,4 @@ export function loadScript (url, callback, ...options) {
 export function typeOf (args) {
 	return ({}).toString.call(args).slice(8, -1)
 }
+
