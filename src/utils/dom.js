@@ -1,11 +1,23 @@
-
+import { bind } from './util'
 
 export function on (node, event, fn) {
-    node.addEventListener(event, fn, false)
+	if (node.addEventListener) {
+		node.addEventListener(event, fn, false)
+	} else if (node.attachEvent) { // IE8默认情况下，事件处理程序会在全局作用域中运行，因此this等于window
+		node.attachEvent(`on${event}`, bind(fn, node)) // 将事件处理函数绑定到触发该事件的dom对象上
+	} else {
+		node[`on${event}`] = fn
+	}
 }
 
 export function off (node, event, fn) {
-    node.removeEventListener(event, fn, false)
+	if (node.removeEventListener) {
+		node.removeEventListener(event, fn, false)
+	} else if (node.detachEvent) {
+		node.detachEvent(`on${event}`, bind(fn, node))
+	} else {
+		node[`on${event}`] = null
+	}
 }
 
 export function once1 (node, event, fn) {
@@ -16,15 +28,11 @@ export function once1 (node, event, fn) {
 }
 
 export function once (node, event, fn) {
-
 	let wrap = function () {
 		off(node, event, wrap)
 		fn.apply(this, arguments)
 	}
 
-    /***
-     * 这里暴露wrap函数，便于扩展
-    */
     wrap.fn = fn
     on(node, event, wrap)
 }
@@ -122,5 +130,24 @@ export function removeClass (el, cls) {
 
 	if (!el.className) {
 		el.removeAttribute('class')
+	}
+}
+
+/***
+ * 获取相关元素信息
+ * mouseover: 事件的主目标是获得光标的元素，而相关元素就是那个失去光标的元素
+ * mouseout: 事件的主目标是失去光标的元素，而相关的元素则是获得光标的元素
+*/
+export function getRelatedTarget (event) {
+	let evt = event || window.event
+
+	if (evt.relatedTarget) {
+		return evt.relatedTarget
+	} else if (evt.toElement) { // IE8 -> mouseout
+		return evt.toElement
+	} else if (evt.fromElement) { // IE8 -> mouseover
+		return evt.fromElement
+	} else {
+		return null
 	}
 }

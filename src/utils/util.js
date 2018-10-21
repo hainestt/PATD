@@ -1,4 +1,3 @@
-
 /**
  *
  * @export
@@ -139,3 +138,42 @@ export function toNumber (value) {
 	return isNaN(number) ? 0 : number
 }
 
+/**
+ *
+ *
+ * @export
+ * @param {* Function} fn
+ * @param {* Object} ctx
+ * @returns {* Function}
+ *
+ * 硬绑定
+ * 这里模拟简单的ES5引入的原生Function.prototype.bind方法
+ * 原生的bind(不支持IE8)方法效率更高，建议使用原生bind
+ *
+ * 缺点：会降低函数的灵活性，且硬绑定后无法使用隐式或显式绑定来修改this指向
+ */
+export function bind (fn, ctx) {
+    return function () {
+        return fn.apply(ctx, arguments)
+    }
+}
+
+/***
+ * 软绑定
+ */
+if (!Function.prototype.softBind) {
+    Function.prototype.softBind = function (obj) {
+        let fn = this
+        let curried = [].slice.call(arguments, 1)
+
+        let wrap = function () {
+            return fn.apply(
+                (!this || this === (window || global)) ? obj : this,
+                curried.concat.apply(curried, arguments)
+            )
+        }
+
+        wrap.prototype = Object.create(fn.prototype)
+        return wrap
+    }
+}

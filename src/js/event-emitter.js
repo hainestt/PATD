@@ -38,7 +38,7 @@
             }
 
             var cb
-            for (var i = 0, l = events.length; i < l; i++) {
+            for (var i = 0, cb, l = events.length; i < l; i++) {
                 cb = events[i]
 
                 if (cb === fn || cb.fn === fn) {

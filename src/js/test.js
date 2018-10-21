@@ -3,11 +3,18 @@
 // wroxwin.resizeTo(500, 500)
 // wroxwin.moveTo(100, 100)
 
-import Vue from 'vue'
+// import Vue from 'vue'
 
-let app = new Vue({
-	data: {
-		name: 'Haines'
-	}
+// let app = new Vue({
+// 	data: {
+// 		name: 'Haines'
+// 	}
+// })
+// console.log('vue', app.name)
+
+import { on } from '../utils'
+
+on(document.body, 'click' ,function(e) {
+	console.log('e', e)
 })
-console.log('vue', app.name)
+
