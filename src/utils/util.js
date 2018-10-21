@@ -119,3 +119,23 @@ export function typeOf (args) {
 	return ({}).toString.call(args).slice(8, -1)
 }
 
+/**
+ *
+ *
+ * @export
+ * @param {*} value
+ * @returns {* Number}
+ * Number()转换规则：
+ * 1, 1024 -> 1024, '4567.11' -> 4567.11
+ * 2, true -> 1, false -> 0
+ * 3, null -> 0, undefined -> NaN
+ * 4, 0xA -> 10
+ * 5, '' -> 0
+ * 6, 不包含以上的返回NaN
+ */
+export function toNumber (value) {
+	let number = (isNaN(value) || value === null) ? 0 : Number(value)
+
+	return isNaN(number) ? 0 : number
+}
+

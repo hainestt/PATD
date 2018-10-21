@@ -102,6 +102,14 @@ export function underscore (str) {
 		.toLowerCase()
 }
 
+/***
+ * email test
+*/
+export function isValidEmail (str) {
+	let reg = /^(([^<>()\[\]\\.;:\s+@"]+(\.[^<>()\[\]\\.;:\s+@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([A-Za-z\-0-9]+\.)+[A-Za-z]{2,}))$/
+
+	return reg.test(str)
+}
 
 /***
  * json

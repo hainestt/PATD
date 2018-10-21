@@ -1,33 +1,13 @@
-// 'use strict'
 
-// let octalNumber = 0o77
+// let wroxwin= window.open('//blog.hainest.com', 'wroxWindow', 'height=400, width=400,top=10,left=10,resizable=yes')
+// wroxwin.resizeTo(500, 500)
+// wroxwin.moveTo(100, 100)
 
-// console.log('octalNum', octalNumber)
+import Vue from 'vue'
 
-import { generateArr } from '../utils'
-
-// var a = generateArr(4294967295)
-
-// console.log(a)
-
-function Person () {}
-
-
-Person.prototype = {
-	name: 'Haines',
-	age: 27,
-	job: 'Web Front-End Engineer',
-	sayName: function () {
-		console.log(this.name)
+let app = new Vue({
+	data: {
+		name: 'Haines'
 	}
-}
-
-let firend = new Person()
-
-
-firend.sayName()
-
-
-let wroxwin= window.open('//blog.hainest.com', 'wroxWindow', 'height=400, width=400,top=10,left=10,resizable=yes')
-wroxwin.resizeTo(500, 500)
-wroxwin.moveTo(100, 100)
+})
+console.log('vue', app.name)

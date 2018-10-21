@@ -6,7 +6,9 @@ import {
 	sortBy,
 	zip,
 	capitalize,
-	underscore } from '../utils'
+	underscore,
+	getCookie
+ } from '../utils'
 
 let text = `/*-secure-\n{"name": "Haines", "age": 27, "goal": "be a excellent web developer"}\n*/`
 
@@ -35,6 +37,7 @@ console.log('arrzip', arrzip)
 
 console.log('haines', capitalize('haines'))
 console.log('underscore', underscore('90hainesTao'))
+console.log('cookie', getCookie('io'))
 
 
 

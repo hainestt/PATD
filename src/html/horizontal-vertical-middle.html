@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{margin: 0; padding:0;box-sizing: border-box}
+        .container {display: flex;width: 600px; height: calc(600px * 0.618); margin: auto;border: 1px solid red;}
+		.container .box {padding: 20px 30px;margin: auto;border: 1px solid green;}
+
+		.table-cell {display: table;width: 600px;height: calc(600px * 0.618); margin: 30px auto;border: 1px solid red;}
+		.table-cell .box {display: table-cell;vertical-align: middle;text-align: center;}
+
+		.absolute {width: 600px;height: calc(600px * 0.618);margin: 30px auto;border: 1px solid red;position: relative;}
+		.absolute .box {position: absolute;top: 50%;left: 50%;width: 200px;height: 50px;margin-top: -25px;margin-left: -100px;border: 1px solid green;}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="box">垂直水平居中-flex</div>
+	</div>
+
+	<div class="table-cell">
+		<div class="box"><div>垂直水平居中-table-cell-IE8</div></div>
+	</div>
+
+	<div class="absolute">
+		<div class="box">
+			垂直水平居中-absolute
+		</div>
+	</div>
+</body>
+</html>
