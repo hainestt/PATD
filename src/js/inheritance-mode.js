@@ -52,7 +52,7 @@
 	console.log('child des:', des, 'parent des:', pDes, 'colors', colors, 'colors2', colors2)
 
 
-}) ()
+})()
 
 !(function () {
 	/***
@@ -197,7 +197,7 @@
 	let person1SayHi = person1.sayHi()
 
 	console.log('person1', person1SayHi)
-}) ()
+})()
 
 !(function () {
 	/***
