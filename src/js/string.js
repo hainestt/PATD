@@ -49,13 +49,3 @@ console.log('cookie', getCookie('io'))
 
 // console.log(trim(str))
 // console.log(str)
-
-let count = 0
-setTimeout(function fn () {
-	count ++
-
-	if (count < 50) {
-		// setTimeout(fn, 1000)
-	}
-	console.log('count', count)
-}, 1000)
