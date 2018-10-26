@@ -11,5 +11,12 @@
 			"regenerator": true,
 			"useESModules": false
 		}]
+		// tree sharking 已经可以做到按需加载，这里没必要在用babel-plugin-import
+		// ,
+		// ["import", {
+		// 	"libraryName": "lodash",
+		// 	"libraryDirectory": "",
+		// 	"camel2DashComponentName": false
+		// }]
 	]
 }
