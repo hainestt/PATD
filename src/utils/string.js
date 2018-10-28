@@ -116,7 +116,7 @@ export function isValidEmail (str) {
  * 参考prototype.js
 */
 export function unfilterJSON (json, filter) {
-	var jsonFilter = /^\/\*-secure-([\s\S]*)\*\/\s*$/
+	let jsonFilter = /^\/\*-secure-([\s\S]*)\*\/\s*$/
 
 	return json.replace((filter || jsonFilter), (m0, m1) => m1 || '')
 }

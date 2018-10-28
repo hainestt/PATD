@@ -1,4 +1,5 @@
-import { on,
+import {
+	on,
 	createEvent,
 	initEvent,
 	fireEvent,
@@ -42,7 +43,7 @@ import { on,
 !(function () {
 	/**
 	 * touch && guesture
-	 * 触发顺序：touchstart->touchend->mouseover(只会触发一次)->mousemove->mousedown->mouseup-click
+	 * 触发顺序：touchstart->touchend->mouseover(只会触发一次)->mousemove->mousedown->mouseup->click
 	*/
 	let str = ''
 	on(document, 'touchstart', event => {

@@ -12,9 +12,12 @@
 // })
 // console.log('vue', app.name)
 
-import { on } from '../utils'
+var foo = {n: 1}
 
-on(document.body, 'click' ,function(e) {
-	console.log('e', e)
-})
+!(function bar (foo) {
+	foo.n = 2
+	// foo = {n:2}
+	console.log('foo-in', foo)
+})(foo)
 
+console.log('foo-out', foo)

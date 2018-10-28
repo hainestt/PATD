@@ -1,6 +1,6 @@
 
 
-/** 
+/**
  * Object.create
 */
 
@@ -27,7 +27,7 @@ function Child () {
     console.log('this-after-call', this)
 }
 
-/** 
+/**
  * call()
  * 原型继承
 */
@@ -35,7 +35,7 @@ function Child () {
 //     Parent.prototype.move.call(this)
 // }
 
-/** 
+/**
  * Object.create()
  * 对象原型继承
 */
@@ -48,7 +48,7 @@ let ins = new Child()
 
 console.log('ins:', ins, '\n')
 
-/*** 
+/***
  * new 实例的 __proto__ 指向的是原型对象
 */
 console.log('ins.__proto__ === Child.prototype:', ins.__proto__ === Child.prototype, '\n')
@@ -63,7 +63,7 @@ console.log('Child.prototype.__proto__ :', Child.prototype.__proto__)
 
 console.log('Object.getPrototypeOf(Child): ',Object.getPrototypeOf(Child), '\n')
 
-/***  
+/***
  * 构造函数的prototype指向的是原型对象
 */
 console.log('Child.prototype:', Child.prototype)
@@ -74,7 +74,7 @@ console.log('Child.prototype.__proto__ === Object.prototype:', Child.prototype._
 console.log('Child.prototype.__proto__ === ({}).__proto__:', Child.prototype.__proto__ === ({}).__proto__)
 console.log('Child.prototype.__proto__ === Parent.prototype:', Child.prototype.__proto__ === Parent.prototype, '\n')
 
-/*** 
+/***
  * 原型对象的constructor指向了构造函数本身
 */
 console.log('Object.getPortotyeOf(Child.prototype.constructor)', Object.getPrototypeOf(Child.prototype.constructor))
