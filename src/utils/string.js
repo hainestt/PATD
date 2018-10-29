@@ -111,6 +111,24 @@ export function isValidEmail (str) {
 	return reg.test(str)
 }
 
+/**
+ * js keywords
+*/
+export function isKeyWord (word) {
+	let keyWords =
+		`break,case,catch,continue,debugger,default,delete,do,else,false,
+		finally,for,function,if,in,instanceof,new,null,return,switch,this,
+		throw,true,try,typeof,var,void,while,with,undefined,
+		abstract,boolean,byte,char,class,const,double,enum,export,extends,
+		final,float,goto,implements,import,int,interface,long,native,
+		package,private,protected,public,short,static,super,synchronized,
+		throws,transient,volatile,arguments,let,yield,Math`
+
+	let keyWordsArr = keyWords.split(/,/g).map(item => item.trim())
+
+	return keyWordsArr.includes(word)
+}
+
 /***
  * json
  * 参考prototype.js

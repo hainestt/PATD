@@ -269,6 +269,7 @@ export function fireEvent (node, eventObj, eventType) {
  * @param {* Object HTMLInputElement} node
  */
 export function getSelectedText (node) {
+
 	if (document.selection) { //IE8
 		return document.selection.createRange().text
 	} else {
