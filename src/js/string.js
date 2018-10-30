@@ -7,7 +7,10 @@ import {
 	zip,
 	capitalize,
 	underscore,
-	getCookie
+	getCookie,
+	deepClone,
+	toNumber,
+	typeOf
  } from '../utils'
 
 let text = `/*-secure-\n{"name": "Haines", "age": 27, "goal": "be a excellent web developer"}\n*/`
@@ -38,6 +41,15 @@ console.log('arrzip', arrzip)
 console.log('haines', capitalize('haines'))
 console.log('underscore', underscore('90hainesTao'))
 console.log('cookie', getCookie('io'))
+
+let  instance = {a:'aa', b: {d: false, f: {a: ['1', '2', '3']}}, c:124, g:Symbol('symble'), h: new Date(), i: /\s+/g, k: () => {return 1}, l: new Error('error'), m: Math}
+let deepCloneString = deepClone(instance)
+deepCloneString.b.f.a = 'Haines'
+console.log(instance.b.f, deepCloneString.b.f)
+// let tonumber = toNumber(Symbol(12))
+// console.log(tonumber)
+console.log(typeOf(''))
+
 
 
 

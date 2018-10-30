@@ -160,6 +160,8 @@ export function bind (fn, ctx) {
 
 /***
  * 软绑定
+ * 优点：
+ * 可修改this指向
  */
 if (!Function.prototype.softBind) {
     Function.prototype.softBind = function (obj) {
@@ -176,4 +178,40 @@ if (!Function.prototype.softBind) {
         wrap.prototype = Object.create(fn.prototype)
         return wrap
     }
+}
+
+/**
+ *
+ *
+ * @export
+ * @param {* Object} obj
+ * @returns
+ *
+ * 可检测类型
+ * Object, Array, Number, String, Boolean, RegExp, Function, Date, Symbol, Math, Error, Undefined, Null
+ */
+
+export function deepClone (obj) {
+	let type = ({}).toString.call(obj).slice(8, -1)
+	let result
+
+	switch(type) {
+		case 'Object':
+			result = {}
+			for (let i in obj) {
+				if (obj.hasOwnProperty(i)) {
+					result[i] = deepClone(obj[i])
+				}
+			}
+			break
+		case 'Array':
+			result = []
+			for (let i = 0, len = obj.length; i < len; i++) {
+				result.push(deepClone(obj[i]))
+			}
+			break
+		default:
+			result = obj
+	}
+	return result
 }

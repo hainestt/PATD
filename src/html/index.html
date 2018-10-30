@@ -8,31 +8,40 @@
 	<link rel="stylesheet" href="./css/base.css">
 </head>
 <body>
-   <ol>
-       <li>
-        <a target="_blank" href="./gpu_speed_up.html"> gpu speed up</a>
+	<section class="dom-remove">
+		<ul>
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+		</ul>
+	</section>
 
-       </li>
-       <li>
-        <a target="_blank" href="./img_loading_fail.html"> img loading fail</a>
-       </li>
-       <li>
+	<section class="event">
+		<div></div>
+	</section>
 
-           <a target="_blank" href="./debounce.html"> debounce</a>
-    </li>
-       <li>
-            <a target="_blank" href="./img-response.html"> img response</a>
-       </li>
-       <li>
-            <a target="_blank" href="./throttle.html"> lazy throttle</a>
-       </li>
-       <li>
-           <a href=""></a>
-       </li>
-       <li></li>
-       <li></li>
-       <li></li>
-   </ol>
+	<section class="from">
+		<form method="POST">
+			<fieldset>
+				<label for="name">Name:</label>
+				<input type="text" name="name" readonly value="hello world">
+			</fieldset>
+		</form>
+	</section>
+
+	<section class="viewmodel">
+		<div id="vm-test">
+			div
+			<input type="text" v-model="text">
+			{{text}}
+			<span>
+				span
+			</span>
+		</div>
+	</section>
+
+
+
 
    <script src="./js/common.js"></script>
    <script src="./js/vendor.js"></script>
@@ -42,9 +51,9 @@
    <!-- <script src="../js/test.js"></script> -->
    <!-- <script src="./js/inheritance-mode.js"></script> -->
    <!-- <script src="./js/functions.js"></script> -->
-   <!-- <script src="./js/string.js"></script> -->
+   <script src="./js/string.js"></script>
    <!-- <script src="./js/test.js"></script> -->
-   <script src="./js/event-emitter.js"></script>
+   <!-- <script src="./js/event-emitter.js"></script> -->
    <!-- <script src="./js/duffs-device.js"></script> -->
    <!-- <script src="./js/thunk.js"></script> -->
    <!-- <script src="./js/h-promise.js"></script> -->
@@ -54,6 +63,8 @@
    <!-- <script src="./js/fetch.js"></script> -->
    <!-- <script src="./js/index.js"></script> -->
    <!-- <script src="./js/websocket.js"></script> -->
+   <!-- <script src="./js/vm.js"></script> -->
+
 
 
    <script>

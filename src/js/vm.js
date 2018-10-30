@@ -176,3 +176,13 @@ Watcher.prototype.get = function () {
 
 // export { ViewModel as Vue }
 window.Vue = ViewModel
+
+// demo
+(function () {
+	new Vue({
+		el: '#vm-test',
+		data: {
+			text: '👋, hello world'
+		}
+	})
+} ())
