@@ -192,10 +192,9 @@ if (!Function.prototype.softBind) {
  */
 
 export function deepClone (obj) {
-	let type = ({}).toString.call(obj).slice(8, -1)
 	let result
 
-	switch(type) {
+	switch(typeOf(obj)) {
 		case 'Object':
 			result = {}
 			for (let i in obj) {
