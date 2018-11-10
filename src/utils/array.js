@@ -92,6 +92,4 @@ export function zip (source, ...target) {
 	return source.map((value, index) => {
 		return iterator.call(void 0, collections.pluck(index))
 	})
-
-
 }

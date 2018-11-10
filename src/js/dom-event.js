@@ -1,10 +1,10 @@
-import {
-	on,
-	createEvent,
-	initEvent,
-	fireEvent,
-	getSelectedText
-} from '../utils'
+// import {
+// 	on,
+// 	createEvent,
+// 	initEvent,
+// 	fireEvent,
+// 	getSelectedText
+// } from '../utils'
 
 !(function () {
 	/***

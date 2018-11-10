@@ -42,7 +42,7 @@
 	T.foo('Hi, Haines')
 })()
 
-!(function (){
+!(function () {
 	/**
 	 * add for any number
 	*/
@@ -77,4 +77,3 @@
 	add(-Infinity, -Infinity) // -Infinity
 
 })()
-

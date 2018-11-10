@@ -133,7 +133,7 @@
 		}
 	}
 
-	three.method(one.say) // Hi, undefined
+	// three.method(one.say) // Hi, undefined
 	three.method(bind(two, one.say)) // Hi, rock
 
 })()

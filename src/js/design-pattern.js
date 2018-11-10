@@ -110,6 +110,32 @@ import { on } from '../utils'
 
 })()
 
+
+!(function () {
+	/**
+	 * 单体
+	 * -> 闭包中的实例
+	 *
+	*/
+	function Singleton () {
+		// 缓存实例
+		let instance  = this
+
+		this.des = 'singleton closure'
+
+		// 重写该构造函数
+		Singleton = function () {
+			return instance
+		}
+	}
+
+	//demo
+	let ins1 = new Singleton()
+	let ins2 = new Singleton()
+	console.log(ins1 === ins2)
+
+})()
+
 !(function () {
 	/***
 	 * 工厂模式(factory)
@@ -259,6 +285,7 @@ import { on } from '../utils'
 	/**
 	 * Demo
 	*/
+
 	let checkbox = document.querySelector('.main-checkbox')
 	let btn = document.querySelector('.add-new-observer')
 	let wrap = document.querySelector('.oberser-container')
@@ -284,14 +311,122 @@ import { on } from '../utils'
 		wrap.appendChild(newCheckbox)
 	})
 
-
-
 })()
 
 !(function () {
 	/***
 	 * 中介者模式
+	 * 优点：节约了对象或组件之间的通信信道
+	 * 缺点：引入了一个单点（mediator）故障，会造成性能损失
 	*/
+
+	class Subscriber {
+		constructor (fn, context, options) {
+			if (new.target !== Subscriber) {
+				return new Subscriber(fn, context, options)
+			}
+
+			this.fn = fn
+			this.context = context
+			this.options = options
+			this.channel = null
+		}
+	}
+
+	class Channel {
+		constructor (namespace) {
+			if (new.target !== Channel) {
+				return new Channel(namespace)
+			}
+
+			this.namespace = namespace || ''
+			this._subscribers = []
+			this._channels = []
+		}
+
+		addSubscriber (fn, context, options) {
+			let subscriber = new Subscriber(fn, context, options)
+
+			this._subscribers.push(subscriber)
+
+			subscriber.channel = this
+
+			return subscriber
+		}
+
+		getSubscriber (fn) {
+
+			for (let i = 0, len = this._subscribers.length; i < len; i++) {
+				if (this._subscribers[i].fn === fn) {
+					return this._subscribers[i]
+				}
+			}
+		}
+
+		removeSubscriber (fn) {
+			if (!fn) {
+				this._subscribers = []
+				return
+			}
+
+			for (let i = 0, len = this._subscribers.length; i < len; i++) {
+				if (this._subscribers[i].fn === fn) {
+					this._subscribers.channel = null
+					this._subscribers.splice(i, 1)
+				}
+			}
+		}
+
+		publish (data) {
+
+			for (let i = 0, len = this._subscribers.length; i < len; i++) {
+				let subscriber = this._subscribers[i]
+				subscriber.fn.apply(subscriber.context, data)
+			}
+		}
+	}
+
+	class Mediator {
+		constructor () {
+			if (new.target !== Mediator) {
+				return new Mediator()
+			}
+
+			this._channels = new Channel('')
+		}
+
+		subscriber (fn, context, options) {
+			return this._channels.addSubscriber(fn, context, options)
+		}
+
+		publish () {
+			let args = [].slice.call(arguments)
+
+			this._channels.publish(args)
+		}
+	}
+
+	/***
+	 * Demo
+	*/
+
+	let form = document.querySelector('.mediator form')
+	let name = form.name
+	let say = form.say
+	let btn = form.submit
+	let mediator = new Mediator()
+
+	on(btn, 'submit', function (e) {
+		e.preventDefault()
+
+		mediator.publish('newMessage', {name: name.value, say: say.value})
+	})
+
+	mediator.subscriber()
+
+
+
+``
 })()
 
 !(function () {

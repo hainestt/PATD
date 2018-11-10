@@ -214,3 +214,16 @@ export function deepClone (obj) {
 	}
 	return result
 }
+
+/***
+ * dec to hex
+*/
+export function toHex(n) {
+	let hex = Number.prototype.toString.call(n, 16)
+	return hex.length < 2 ? [0, n].join('') : hex
+}
+
+export function rgbToHexString(r, g, b) {
+	return ['#', toHex(r), toHex(g), toHex(b)].join('')
+}
+

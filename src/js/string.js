@@ -10,8 +10,16 @@ import {
 	getCookie,
 	deepClone,
 	toNumber,
-	typeOf
+	typeOf,
+	getQuery,
+	cat,
+	rename
  } from '../utils'
+
+let url = 'https://cn.bing.com/search?q=web+%E5%89%8D%E7%AB%AF%E8%B6%8B%E5%8A%BF&qs=n&form=QBRE&sp=-1&pq=web+%E5%89%8D%E7%AB%AF%E8%B6%8B%E5%8A%BF&sc=0-8&sk=&cvid=982DB9D672A9404FABD09A6EACBFD2D1'
+
+console.log('query', getQuery(url, 'q'))
+
 
 let text = `/*-secure-\n{"name": "Haines", "age": 27, "goal": "be a excellent web developer"}\n*/`
 
@@ -50,7 +58,7 @@ console.log(instance.b.f, deepCloneString.b.f)
 // console.log(tonumber)
 console.log(typeOf(''))
 
-
+console.log(rename({a: 111, b: 222}, {'a': 'AAA'}))
 
 
 // console.log(json.goal)
