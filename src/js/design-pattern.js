@@ -424,9 +424,6 @@ import { on } from '../utils'
 
 	mediator.subscriber()
 
-
-
-``
 })()
 
 !(function () {

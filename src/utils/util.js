@@ -188,7 +188,7 @@ if (!Function.prototype.softBind) {
  * @returns
  *
  * 可检测类型
- * Object, Array, Number, String, Boolean, RegExp, Function, Date, Symbol, Math, Error, Undefined, Null
+ * Object, Array, Number, String, Boolean, RegExp, Function, Date, Symbol, Math, Error, Undefined, Null,,,,
  */
 
 export function deepClone (obj) {
@@ -218,12 +218,42 @@ export function deepClone (obj) {
 /***
  * dec to hex
 */
-export function toHex(n) {
+export function toHex (n) {
+	//s1
 	let hex = Number.prototype.toString.call(n, 16)
 	return hex.length < 2 ? [0, n].join('') : hex
+
+	// s2
+	// let hexStr = '0123456789ABCDEF'
+	// return String(hexStr.substr((n >> 4) & 0x0f, 1) + hexStr.substr(n & 0x0f, 1))
 }
 
-export function rgbToHexString(r, g, b) {
+export function rgbToHexString (r, g, b) {
 	return ['#', toHex(r), toHex(g), toHex(b)].join('')
 }
 
+/**
+ *
+ *
+ * @export
+ * @param {* Number} x
+ * @param {* Number} y
+ * @returns {* Boolean}
+ *
+ * 符号判断
+ */
+export function singsMatch (x, y) {
+	return !((x ^ y) < 0)
+}
+
+/**
+ *
+ *
+ * @export
+ * @param {* Number} n
+ * @returns {* Number} -1 or 0 or 1
+ * JavaScript整数的二进制存储为32位，这里的31次移位，使用的是位域的结尾
+ */
+export function singnum(n) {
+	return ((n >> 31) | ((-n) >>> 31))
+}

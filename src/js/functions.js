@@ -281,3 +281,7 @@ import { cat, construct } from '../utils'
 	console.log(depthSearchResult)
 
 })()
+
+!(function () {
+
+})()
