@@ -254,6 +254,29 @@ export function singsMatch (x, y) {
  * @returns {* Number} -1 or 0 or 1
  * JavaScript整数的二进制存储为32位，这里的31次移位，使用的是位域的结尾
  */
-export function singnum(n) {
+export function singnum (n) {
 	return ((n >> 31) | ((-n) >>> 31))
+}
+
+/**
+ *
+ *
+ * @export
+ * @param {* Object Array} obj
+ * @param {* String} p // 对象的key
+ *
+ * let obj = [{id: 1, name: 'one'}, {id: 2, name: 'two'}]
+ * groupBy(obj, 'id')
+ * -> [1: {id:1, name: 'one'}, {2: {id: 2, name: 'two'}}]
+ */
+export function groupBy (objArr, p) {
+	return objArr.reduce((acc, obj) => {
+		let key = obj[p]
+		if (!acc[key]) {
+			acc[key] = []
+		}
+		acc[key].push(obj)
+
+		return acc
+	}, {})
 }

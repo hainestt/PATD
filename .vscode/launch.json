@@ -9,9 +9,9 @@
             "request": "launch",
             "name": "Launch Program",
             // "program": "${workspaceFolder}/src/js/inheritance-mode.js"
-            // "program": "${workspaceFolder}/src/js/temp.js"
+            "program": "${workspaceFolder}/src/js/temp.js"
             // "program": "${workspaceFolder}/src/js/mvc.js"
-            "program": "${workspaceFolder}/src/js/fs-test.js"
+            // "program": "${workspaceFolder}/src/js/fs-test.js"
             // "program": "${workspaceFolder}/src/js/this.js"
             // "program": "${workspaceFolder}/src/js/functions.js"
         },{
