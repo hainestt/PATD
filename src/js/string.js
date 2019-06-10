@@ -20,6 +20,11 @@ let url = 'https://cn.bing.com/search?q=web+%E5%89%8D%E7%AB%AF%E8%B6%8B%E5%8A%BF
 
 console.log('query', getQuery(url, 'q'))
 
+JSON.parse('true') // true
+JSON.parse('false') // false
+JSON.parse('1') // 1
+JSON.parse('0') // 0
+
 
 let text = `/*-secure-\n{"name": "Haines", "age": 27, "goal": "be a excellent web developer"}\n*/`
 

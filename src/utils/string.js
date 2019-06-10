@@ -155,3 +155,20 @@ export function evalJSON (json, filter) {
 		throw `Invalid JSON:${json}`
 	}
 }
+
+/***
+ * generate hash
+*/
+
+var hashCode = function(text) {
+	var i, chr, len;
+	var hash = 0;
+
+	for (i = 0, len = text.length; i < len; i++) {
+	  chr = text.charCodeAt(i);
+	  hash = ((hash << 5) - hash) + chr;
+	  hash |= 0; // Convert to 32bit integer
+	}
+
+	return hash;
+  };
