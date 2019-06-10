@@ -193,7 +193,6 @@ if (!Function.prototype.softBind) {
 
 export function deepClone (obj) {
 	let result
-
 	switch(typeOf(obj)) {
 		case 'Object':
 			result = {}
@@ -248,7 +247,6 @@ export function singsMatch (x, y) {
 
 /**
  *
- *
  * @export
  * @param {* Number} n
  * @returns {* Number} -1 or 0 or 1
@@ -256,4 +254,24 @@ export function singsMatch (x, y) {
  */
 export function singnum(n) {
 	return ((n >> 31) | ((-n) >>> 31))
+}
+
+/**
+ * 
+ * @param {* Number} times 
+ * @param {* String} str 
+ */
+export function repeat(times, str) {
+	return (new Array(times + 1)).join(str)
+}
+
+/**
+ * 
+ * @param {* Array} arr
+ */
+export function flatten (arr) {
+	while(arr.some(key => Array.isArray(key))) {
+		arr = [].concat(...arr)
+	}
+	return arr
 }

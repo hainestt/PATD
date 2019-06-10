@@ -6,6 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 	<link rel="stylesheet" href="./css/base.css">
+	<style>
+		body {
+			background-color: #f0f2f5;
+		}
+	</style>
 </head>
 <body>
 	<section class="dom-remove">
@@ -55,6 +60,10 @@
 		</form>
 	</section>
 
+	<section>
+		<div class="curUser">测试消息-测试-测试=====1</div>
+	</section>
+
 
    <script src="./js/common.js"></script>
    <script src="./js/vendor.js"></script>
@@ -85,6 +94,22 @@
 	   function evalCallback (res) {
 			console.log('res', res)
 		}
+   </script>
+
+   <script>
+	   !(function () {
+		let el = document.createElement('link')
+			el.rel = 'stylesheet'
+			el.type = 'text/css'
+			el.href = 'https://ops_event.oa.fenqile.com/static/styles/2.e2c2e81c987172784f95.css'
+			el.onload = function (params) {
+				console.log('load success! ^^')
+			}
+			el.onerror = function (params) {
+				console.log('error')
+			}
+			document.getElementsByTagName('head')[0].appendChild(el)
+	   })()
    </script>
 </body>
 </html>

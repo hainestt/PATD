@@ -13,9 +13,6 @@ function ViewModel(options) {
 	new Compiler(vm, options)
 }
 
-
-
-
 /***
  * Compiler
 */
