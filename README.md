@@ -1,5 +1,3 @@
-# Poetry And The Distance
-
 ```
 If the day is done ,
 If birds sing no more .
