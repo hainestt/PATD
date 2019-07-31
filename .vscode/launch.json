@@ -8,7 +8,7 @@
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
-            "program": "${workspaceFolder}/src/js/proxy-reflect.js"
+            "program": "${workspaceFolder}/src/js/argorithm/sort.js"
 
         },{
 			"type": "node",
