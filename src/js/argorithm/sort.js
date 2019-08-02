@@ -50,8 +50,76 @@ class Sort {
 
 		return data
 	}
+
+	/***
+	 * theory:
+	 * 将数组按位数切割成不同的数字，然后按每个位分别比较
+	 *
+	 *
+	*/
+	radix () {
+		let { data } = this
+		// 数组长度
+		let len = data.length
+		// 数组最大值
+		let max = (function(data) {
+			let max = 0
+			data.forEach(item => item > max ? max = item : void 0)
+			return max
+		})(data)
+
+		// 最大值长度
+		let maxLen = String(max).length
+
+		/***
+		 * 获取某一位的数值
+		 *
+		 * 对于456这个数字：
+		 * > 获取个位数: ~~((456 / 1) % 10) = 6
+		 * > 获取十位数: ~~((456 / 10) % 10) = 5
+		 * > 获取百位数: ~~((456 / 100) % 10) = 4
+		*/
+		let digit = function(n, b = 0) {
+			let num = Math.pow(10, b)
+
+			return ~~((n / num) % 10)
+		}
+
+		// 排序
+		for (let i = 0; i < maxLen; i++) {
+			let radix = 10
+			const output = []
+			const bucket = Array(radix).fill(0)
+
+			// 将每个数据所在位上的数字放到相应的(索引标识)桶中
+			for (let j = 0; j < len; j++) {
+				let bucketIndex = digit(data[j], i)
+				bucket[bucketIndex]++
+			}
+
+			// 计算输出到output的新索引
+			for (let j = 1; j < radix; j++) {
+				bucket[j] += bucket[j-1]
+			}
+
+			// 将原始数据分配给新的output数组
+			for (let j = len - 1; j >= 0; j--) {
+				let bucketIndex = digit(data[j], i)
+				output[--bucket[bucketIndex]] = data[j]
+			}
+
+			for (let j = 0; j < len; j++) {
+				data[j] = output[j]
+			}
+		}
+
+		return data
+	}
 }
 
-let ans = new Sort([8,9,1,7,2,3,5,4,6,0])
-let shell = ans.shell()
-console.log('shell->', shell)
+// let ans = new Sort([81,29,13,27,32,1,52,49,63,100])
+let ans = new Sort([81,29,63,53,100])
+// let shell = ans.shell()
+let radix = ans.radix()
+// console.log('shell->', shell)
+console.log('radix->', radix)
