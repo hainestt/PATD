@@ -19,21 +19,30 @@
 // console.log('bar', bar)
 
 
-function binSearch(arr, val) {
+function interpolateSearch (arr, value) {
 	let low = 0
 	let height = arr.length - 1
+	let mid
 
-	while(low <= height) {
-		let mid = (low + height) / 2
+	while(low <= height && arr[low] <= value && arr[height] >= value) {
+		if (arr[low] === arr[height]) {
+			return ~~((low + height) / 2)
+		}
 
-		if (arr[mid] < val) {
-			mid = low + 1
-		} else if(arr[mid] > val) {
-			mid = height - 1
+		mid = ~~(low + (height - low) / ((value - arr[low]) *(arr[height] - value)))
+
+		if(value > arr[mid]) {
+			height = mid - 1
+		} else if (value < arr[mid]) {
+			low = mid + 1
 		} else {
 			return mid
 		}
 	}
 
-	return 0
+	return -1
 }
+
+
+let a = interpolateSearch([1,2, 3,4,5,6], 2)
+console.log(a)

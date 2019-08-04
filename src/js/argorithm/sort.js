@@ -115,11 +115,104 @@ class Sort {
 
 		return data
 	}
+
+	/**
+	 * theory:
+	 * 在未排序的数列中找到最小的元素，然后将其存放到数列的起始位置；
+	 * 再从剩下未排序的数列中选择最小的元素，然后放到已排序的序列末尾。
+	 * 以此类推直到排序完毕
+	*/
+	select () {
+		let { data } = this
+		let len = data.length
+		let min
+
+		for (let i = 0; i < len - 1; i++) {
+			min = i
+			for (let j = i + 1; j < len; j++) {
+				if (data[j] < data[min]) {
+					min = j
+				}
+			}
+			if (i !== min) {
+				[data[i], data[min]] = [data[min], data[i]]
+			}
+		}
+
+		return data
+	}
+
+	/***
+	 * theory:
+	 * 将数列看成一个有序表和一个无需表，有序表只有一个元素，无序表有n-1个元素，
+	 * 每次从无序表中取出第一个元素，插入到有序表中，直到无序表为空
+	*/
+	insert () {
+		let { data } = this
+		let len = data.length
+
+		for(let i = 1; i < len; i++) {
+			let temp = data[i]
+			let j = i
+
+			while(j >=0 && data[j] < data[j - 1]) {
+				[data[j], data[j - 1]] = [data[j - 1], data[j]]
+				j--
+			}
+			data[j] = temp
+		}
+
+		return data
+
+	}
+
+	/***
+	 * theory:
+	 * 分而治之，将原始数组切分成较小的数组，直到每个小数组只有一个位置，
+	 * 然后将小数组归并成较大的数组，直到最后只有一个排序完毕的大数组
+	*/
+	merge () {
+		let { data } = this
+
+		let mergeSort = function (arr) {
+			if (arr.length > 1) {
+				const {length: len} = arr
+				const mid = ~~(len / 2)
+
+				// 拆分成左右两个数组
+				const left = mergeSort(arr.slice(0, mid))
+				const right = mergeSort(arr.slice(mid, len))
+
+				// 排序合并成一个数组
+				arr = merge(left, right)
+			}
+
+			return arr
+		}
+
+		let merge  = function(left, right) {
+			let i = 0
+			let j = 0
+			const result = []
+
+			while(i < left.length && j < right.length) {
+				result.push(
+					left[i] < right[j] ? left[i++]: right[j++]
+				)
+			}
+			return result.concat(i < left.length ? left.slice(i): right.slice(j))
+		}
+
+
+		return mergeSort(data)
+	}
+
 }
 
-// let ans = new Sort([81,29,13,27,32,1,52,49,63,100])
-let ans = new Sort([81,29,63,53,100])
+let ans = new Sort([81,29,13,27,32,1,52,49,63,100])
 // let shell = ans.shell()
-let radix = ans.radix()
-// console.log('shell->', shell)
-console.log('radix->', radix)
+// let radix = ans.radix()
+// let select = ans.select()
+// let insert = ans.insert()
+let merge = ans.merge()
+console.log('result:', merge)

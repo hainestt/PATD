@@ -93,3 +93,32 @@ export function zip (source, ...target) {
 		return iterator.call(void 0, collections.pluck(index))
 	})
 }
+
+/**
+ *
+ *
+ * @export
+ * @param {Array} arr
+ * @param {String | Number} value
+ * @returns { Number }
+ *
+ * 有序数组
+ */
+export function findIndex(arr, value) {
+	let low = 0
+	let height = arr.length - 1
+
+	while(low <= height) {
+		let mid = ~~((low + height) / 2)
+
+		if (arr[mid] > value) {
+			mid = height - 1
+		} else if (arr[mid] < value){
+			mid = low - 1
+		} else {
+			return mid
+		}
+	}
+
+	return -1
+}
