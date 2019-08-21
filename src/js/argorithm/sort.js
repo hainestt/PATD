@@ -177,7 +177,8 @@ class Sort {
 		let mergeSort = function (arr) {
 			if (arr.length > 1) {
 				const {length: len} = arr
-				const mid = ~~(len / 2)
+				// const mid = ~~(len / 2)
+				const mid = len >> 1 //
 
 				// 拆分成左右两个数组
 				const left = mergeSort(arr.slice(0, mid))
@@ -207,6 +208,50 @@ class Sort {
 		return mergeSort(data)
 	}
 
+	/***
+	 * theory:
+	 * 分治策略，在数列中选择一个基准值，把数列分成比基准值小的，以及比基准值大的两部分；
+	 * 然后分别对两个部分进行快速排序，直到排序完成。
+	*/
+	quick () {
+		let { data } = this
+		let {length: len} = data
+
+		let quickSort = function(arr, left, right) {
+			if(left < right) {
+
+				let i = left
+				let j = right
+				let v = arr[i]
+
+				while(i < j) {
+					while(i < j && arr[j] > v) {
+						j--
+					}
+					if (i < j) {
+						arr[i++] = arr[j]
+					}
+
+					while(i < j && arr[i] < v) {
+						i++
+					}
+					if (i < j) {
+						arr[j--] = arr[i]
+					}
+				}
+
+				arr[i] = v
+
+				quickSort(arr, left, right - 1)
+				quickSort(arr, left + 1, right)
+			}
+
+			return arr
+		}
+
+		return quickSort(data, 0, len - 1)
+	}
+
 }
 
 let ans = new Sort([81,29,13,27,32,1,52,49,63,100])
@@ -214,5 +259,8 @@ let ans = new Sort([81,29,13,27,32,1,52,49,63,100])
 // let radix = ans.radix()
 // let select = ans.select()
 // let insert = ans.insert()
-let merge = ans.merge()
-console.log('result:', merge)
+// let merge = ans.merge()
+let quick = ans.quick()
+console.log('result:', quick)
+
+
