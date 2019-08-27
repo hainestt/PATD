@@ -1,35 +1,21 @@
-let obj = new Proxy({}, {
-    get (target, key, receiver) {
-        console.log(`get ${key}`)
-    },
-    set (target, key, value, receiver) {
-        console.log(`set ${key}`)
+/**
+ *
+ * 代理实现单例
+ * @export
+ * @param {Function} func
+ * @returns Function
+ */
+export function proxy(func) {
+	let ins
+	let handler = {
+		constructor(target, args) {
+			if (!ins) {
+				ins = Reflect.construct(func, args)
+			}
 
-        return Reflect.set(target, key, value, receiver)
-    }
-})
+			return ins
+		}
+	}
 
-obj.count = 1
-
-++obj.count
-
-let foo = new Proxy({}, {
-    get (target, property) {
-        return 35
-    }
-})
-
-let fins = Object.create(foo)
-
-fins.time
-foo.time
-
-
-const p = new Proxy(() => 'I am the target', {
-    apply(target, ctx, args) {
-        // return Reflect.apply(...arguments)
-        return 'I am the proxy'
-    }
-})
-
-p()
+	return new Proxy(func, handler)
+}

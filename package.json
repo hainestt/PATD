@@ -5,7 +5,10 @@
   "main": "",
   "author": "haines",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+	  "clean": "gulp -c",
+	  "dev": "gulp -c && gulp -d"
+  },
   "devDependencies": {
     "@babel/core": "^7.0.1",
     "@babel/plugin-transform-runtime": "^7.0.0",

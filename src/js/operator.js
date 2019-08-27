@@ -27,4 +27,22 @@ i >> 4				// 15 相当于255/(2^4)向下取整
 let j = 1
 j ^ 1				// 0 按位翻转
 
-let h = 0b101 		// 十进制的5
+let h1 = 0b101 		// 十进制的5
+
+/****---------------------------------------------- */
+
+null + 1 === 1		// true
+null == 0			// false
+
+([] + {}) === '[object Object]'		// true
+{} + [] === 0						// true
+null == undefined 					// true
+
+[2] == 2							// true ，[2]进行ToPrimitive【特性：toString(),valueOf(),其中valueOf()为默认方法】强制类型转换
+[2] + 2								// '22'
+'' == [null]						// true ， [null]进行ToPrimitive【特性：toString(),valueOf(),其中valueOf()为默认方法】强制类型转换
+0 == '\t\n\f\v'						// true
+
+
+
+/****---------------------------------------------- */
