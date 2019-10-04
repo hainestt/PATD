@@ -45,6 +45,11 @@ gulp.task('js', (done) => {
 	})
 })
 
+gulp.task('vendor', () => {
+	gulp.src('./vendor/**/*', {base: './vendor'})
+		.pipe(gulp.dest(`${dest}/lib`))
+})
+
 gulp.task('md5', ['clean'], () => {
 	gulp.src([`${dest}/js/*.js`, `${dest}/css/*.css`], {base: dest})
 		.pipe(md5(10, `${dest}/*.html`))
@@ -103,7 +108,7 @@ gulp.task('watch', () => {
 })
 
 gulp.task('build:dev', cb => {
-	runSequence('clean', ['css', 'js', 'html', 'img'],cb)
+	runSequence('clean', ['css', 'js', 'html', 'img', 'vendor'],cb)
 })
 
 gulp.task('build:live', cb => {

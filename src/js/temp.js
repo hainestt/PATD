@@ -318,3 +318,29 @@ function number1count(n) {
 }
 
 console.log('count->', number1count(1023))
+
+var F = function() {
+	this.a = 12
+
+	// return this.a = 1
+}
+
+var ins = new F()
+console.log('ins->', ins)
+
+
+var test = {
+	b: {
+		c: {
+			d: 'hello word'
+		}
+	}
+}
+
+console.time('obj')
+console.log(test.b.c.d)
+console.timeEnd('obj')
+
+console.time('arr')
+console.log(test['b']['c']['d'])
+console.timeEnd('arr')
