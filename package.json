@@ -10,7 +10,7 @@
 	  "dev": "gulp -c && gulp -d"
   },
   "devDependencies": {
-    "@babel/core": "^7.0.1",
+    "@babel/core": "^7.20.7",
     "@babel/plugin-transform-runtime": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
     "babel-loader": "^8.0.2",
